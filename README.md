@@ -1,6 +1,6 @@
 # Ouranos
 
-An interactive orbital emergency-response concept website. A continuous Three.js camera journey follows an autonomous servicing spacecraft through dispatch, rendezvous, inspection, future intervention, and a distributed orbital network.
+An interactive predictive spacecraft-maintenance concept website. A continuous Three.js camera journey connects early risk signals, autonomous observation, preventive intervention, and orbital fleet coverage.
 
 ## Run locally
 
@@ -15,11 +15,14 @@ Open http://localhost:4173 in a browser. Website source and locally vendored Thr
 ## Experience
 
 - Scroll-driven 3D spacecraft and Earth scene with chapter navigation.
-- Inspection report, sensor explanations, five-stage roadmap, and inspection overlay.
+- Interactive six-input risk simulator with staged autonomous inspection.
+- Rotatable, pannable, zoomable spacecraft explorer with nine predictive sensing systems.
+- Animated data-to-intervention scenario, before/after comparison, and fleet-risk demonstration.
+- Diagnostic report, capability roadmap, and preventive servicing animation.
 - Custom orbital targeting cursor and responsive layouts.
 - System reduced-motion preference respected automatically.
 
-All spacecraft, mission findings, and coverage diagrams are illustrative concepts. Inspection and diagnosis are the first planned capability; subsequent interventions and fleet coverage are roadmap concepts, not operational service claims.
+All spacecraft, risk scores, probabilities, confidence values, estimated degradation windows, mission findings, and coverage diagrams are illustrative concepts. The risk simulator is not a validated flight model. Inspection and diagnosis are the first planned capability; subsequent interventions and fleet coverage are roadmap concepts, not operational service claims.
 
 ## Assets
 
