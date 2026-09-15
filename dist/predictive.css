@@ -28,3 +28,12 @@
 #subsystem-panel h3{font-size:19px}#subsystem-panel p{font-size:12px}
 .model-hotspot{width:25px;height:25px;font-size:9px;opacity:.5}
 @media(max-width:600px){.vehicle-intro{top:13%;max-width:none;right:8%}.vehicle-intro h2{font-size:29px}.subsystem-nav{top:auto;bottom:12%;left:7%;right:7%;width:auto;display:flex}.subsystem-nav button{flex:0 0 140px;min-height:44px}.viewer-tools{bottom:19%;right:8%}#subsystem-panel{left:7%;right:7%;bottom:26%;width:auto;max-height:170px}#vehicle-canvas{left:10%;right:10%;top:33%;bottom:27%}.model-hotspot{width:22px;height:22px}}
+
+/* Network copy stays between the header and mission footer. */
+#network .copy{top:140px;bottom:100px;translate:none!important;overflow:auto;scrollbar-width:thin;padding-right:12px}
+#network h2{font-size:clamp(36px,4vw,56px);letter-spacing:-2px;margin-bottom:22px}
+#network .copy>.eyebrow{margin-bottom:18px}
+#network .copy>p:not(.eyebrow){font-size:15px;line-height:1.6;margin-bottom:20px}
+#network .coverage{margin-top:18px;padding-top:15px}
+#network .coverage b{font-size:18px}
+@media(max-width:600px){#network .copy{top:100px;bottom:auto;max-height:calc(48svh - 115px)}#network h2{font-size:30px}#network .copy>p:not(.eyebrow){font-size:12px;margin-bottom:12px}}
