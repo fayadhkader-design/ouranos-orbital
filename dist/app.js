@@ -1,4 +1,4 @@
-import {initPredictive} from './predictive.js?v=4';
+import {initPredictive} from './predictive.js?v=5';
 import * as THREE from './vendor/three.module.js';
 import {RoundedBoxGeometry} from './vendor/RoundedBoxGeometry.js';
 
@@ -115,7 +115,7 @@ network=new THREE.Group();earth.add(network);for(let j=0;j<3;j++){const orbit=ne
 network.children.forEach((orbit,j)=>{const vehicle=responder.clone(true);vehicle.scale.setScalar(.65);vehicle.position.set(49+j*3,0,0);orbit.add(vehicle);});
 inspection=new THREE.Group();client.add(inspection);const mat=new THREE.MeshBasicMaterial({color:0xd3edff,transparent:true,opacity:0,depthWrite:false});for(const r of [.45,.65])ring(inspection,r,.009,1.1,0,.35,mat);document.body.classList.add('ready');}
 try{init();}catch(e){renderer=null;document.body.classList.add('fallback','ready');console.error(e);}
-initPredictive({THREE,model:responder,reduced});
+const predictive=initPredictive({THREE,model:responder,reduced,camera,scene,client});
 const cameraKeys=[[4,12,55],[5,8,30],[7,5,5],[14,6,5],[15,6,3],[8,7,12],[5,16,100]];
 const lookKeys=[[-6,-3,-17],[-4,-1,-16],[-2,0,-16],[0,0,-16],[0,0,-16],[-2,0,-16],[-12,-32,-60]];
 const responderKeys=[[4,1,12],[4,1,2],[3.4,.65,-9],[7.4,-2.5,-16.85],[7.4,-2.5,-16.85],[5,1,-10],[9,0,-8]];
@@ -123,7 +123,7 @@ const curve=a=>new THREE.CatmullRomCurve3(a.map(p=>new THREE.Vector3(...p)),fals
 const camPath=curve(cameraKeys),lookPath=curve(lookKeys),shipPath=curve(responderKeys);const cp=new THREE.Vector3(),lp=new THREE.Vector3();let last=0;
 function frame(now){requestAnimationFrame(frame);if(paused)return;const dt=Math.min((now-last)/1000,.05)||.016;last=now;progress=reduced?target:mix(progress,target,1-Math.exp(-dt*5));const index=Math.round(progress);if(chapter!==index){chapter=index;$('#chapter-name').textContent=names[index];all('.chapter-nav button').forEach((b,i)=>{b.classList.toggle('selected',i===index);b.setAttribute('aria-current',i===index?'step':'false');});}
 chapters.forEach((el,i)=>{const d=Math.abs(progress-i),opacity=reduced?(index===i?1:0):1-smooth(clamp((d-.25)/.24));el.classList.toggle('active',opacity>0);el.inert=index!==i;el.style.opacity=opacity;el.style.transform=reduced?'none':`translateY(${(i-progress)*-25}px)`;});$('#progress').textContent=String(Math.round(progress/6*100)).padStart(3,'0')+'%';if(!renderer)return;
-responder.visible=index!==2;client.visible=index!==2;
+
 const sample=reduced?Math.round(progress):progress,t=sample/6;camPath.getPoint(t,cp);lookPath.getPoint(t,lp);if(mobile()){cp.z+=12;lp.x+=4;lp.y-=2.5;}if(!reduced){cp.x+=pointer.x*.15;cp.y-=pointer.y*.1;}camera.position.copy(cp);camera.lookAt(lp);camera.rotateZ(Math.sin(sample*.9)*.025);shipPath.getPoint(t,responder.position);
 // Hold station throughout contact; all phases are reversible functions of scroll.
 responder.rotation.set(0,Math.PI,0);
@@ -146,5 +146,5 @@ const status=sample<3.5?'ARM APPROACH / HINGE TARGET':sample<3.65?'TOOL ENGAGED 
 $('#repair-status').textContent=status;
 $('#repair-status').classList.toggle('complete',sample>=4.25);
 const reveal=smooth(clamp((sample-2.4)/.45))*(1-smooth(clamp((sample-4.5)/.5)));inspection.children.forEach(m=>m.material.opacity=ar?reveal*.8:0);inspection.rotation.z=scanRunning?Math.sin(now*.003)*.3:0;inspection.children.forEach(m=>m.material.color.setHex(deployment>.95?0x8df0bf:0xd3edff));
-network.children.forEach(o=>o.children.forEach(m=>{if(m.isLine)m.material.opacity=.12+.40*smooth(clamp((sample-5)/.7));}));renderer.render(scene,camera);}
+network.children.forEach(o=>o.children.forEach(m=>{if(m.isLine)m.material.opacity=.12+.40*smooth(clamp((sample-5)/.7));}));predictive.update(now,sample);renderer.render(scene,camera);}
 addEventListener('resize',()=>{if(renderer){renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();}readScroll();});readScroll();requestAnimationFrame(frame);
