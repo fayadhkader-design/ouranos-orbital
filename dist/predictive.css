@@ -37,3 +37,5 @@
 #network .coverage{margin-top:18px;padding-top:15px}
 #network .coverage b{font-size:18px}
 @media(max-width:600px){#network .copy{top:100px;bottom:auto;max-height:calc(48svh - 115px)}#network h2{font-size:30px}#network .copy>p:not(.eyebrow){font-size:12px;margin-bottom:12px}}
+
+#network.active .copy{pointer-events:auto}
