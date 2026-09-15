@@ -1,4 +1,4 @@
-import {initPredictive} from './predictive.js?v=5';
+import {initPredictive} from './predictive.js?v=6';
 import * as THREE from './vendor/three.module.js';
 import {RoundedBoxGeometry} from './vendor/RoundedBoxGeometry.js';
 
